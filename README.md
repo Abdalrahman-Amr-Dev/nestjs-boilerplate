@@ -18,6 +18,7 @@
 
 - [Features](#features)
 - [Technologies](#technologies)
+- [TypeScript 7](#typescript-7)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -38,9 +39,33 @@
 ## Technologies
 
 - [NestJS](https://nestjs.com) 11
-- [TypeScript](https://www.typescriptlang.org) 5
+- [TypeScript](https://www.typescriptlang.org) 7
 - [Jest](https://jestjs.io)
 - [ESLint](https://eslint.org) & [Prettier](https://prettier.io)
+
+## TypeScript 7
+
+This boilerplate runs on [TypeScript 7](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/), the native (Go) compiler that ships the `tsc` executable only — it exposes no programmatic compiler API yet (expected in 7.1).
+
+To keep the rest of the tooling working, TypeScript is installed **side-by-side** using npm aliases:
+
+```json
+{
+  "devDependencies": {
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
+  }
+}
+```
+
+- `@typescript/native` → the fast native `tsc` (7.0.2), used for building and type-checking.
+- `typescript` → aliased to `@typescript/typescript6` (6.0.2), which re-exports the TypeScript 6 JavaScript API so tools that import `typescript` (ts-jest, typescript-eslint) keep working.
+
+Notes:
+
+- The `build` script uses `tsc -p tsconfig.build.json` directly because the Nest CLI (`nest build`) requires the compiler API that TS 7.0 doesn't expose yet.
+- `tsconfig.json` was adapted for TS 7 defaults: `baseUrl` was removed, `rootDir` and `types` (`["node", "jest"]`) are set explicitly, and `include` is scoped to `src`.
+- A `tsc6` executable is also available if you ever need the TypeScript 6 CLI.
 
 ## Getting Started
 
