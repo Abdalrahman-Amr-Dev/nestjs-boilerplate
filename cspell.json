@@ -3,5 +3,6 @@
   "version": "0.2",
   "language": "en",
   "dictionaries": ["typescript", "node"],
-  "ignorePaths": ["node_modules", "dist", "package-lock.json"]
+  "ignorePaths": ["node_modules", "dist", "package-lock.json"],
+  "words": ["mikro"]
 }
